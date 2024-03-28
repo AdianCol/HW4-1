@@ -16,7 +16,7 @@ class Prog{
         doubleArray.DeleteElement(6);
         doubleArray.Print();
         intArray.Sorting();
-        intArray.Print();A
+        intArray.Print();
         doubleArray.Sorting();
         doubleArray.Print();
         intArray.CountWithIf((i)=>

@@ -3,104 +3,20 @@
 class Prog{
     static void Main()
     {
-        Random r = new Random();
-        OneDemensionMassive<int> intArray = new OneDemensionMassive<int>((m, b) =>
-        {
-            int[] mass = new int[m.Length];
-            if (b)
-            {
-                for(int i = 0; i < mass.Length; i++){
-                    mass[i] = int.Parse(Console.ReadLine());
-                }
-            }
-            else
-            {
-                for (int i = 0; i < mass.Length; i++)
-                {
-                    mass[i] = r.Next(-1000, 1000);
-                }
-            }
-            return mass;
-        });
+        OneDemensionMassive<int> intArray = new();
         intArray.Print();
-        OneDemensionMassive<double> doubleArray = new OneDemensionMassive<double>((m, b) =>
-        {
-            double[] mass = new double[m.Length];
-            if (b)
-            {
-                for (int i = 0; i < mass.Length; i++)
-                {
-                    mass[i] = double.Parse(Console.ReadLine());
-                }
-            }
-            else
-            {
-                for (int i = 0; i < mass.Length; i++)
-                {
-                    mass[i] = r.Next(-1000, 1000)/r.Next(-10, 10);
-                }
-            }
-            return mass;
-        });
+        OneDemensionMassive<double> doubleArray = new();
         doubleArray.Print();
-        intArray.AddElement((m)=>
-        {
-            int[] mass = new int[m.Length+1];
-            for (int i = 0; i < m.Length; i++)
-            {
-                mass[i] = m[i];
-            }
-            mass[m.Length] = r.Next(-1000, 1000);
-            return mass;
-        });
+        intArray.Add(5);
         intArray.Print();
-        doubleArray.AddElement((m) =>
-        {
-            double[] mass = new double[m.Length + 1];
-            for (int i = 0; i < m.Length; i++)
-            {
-                mass[i] = m[i];
-            }
-            mass[m.Length] = r.Next(-1000, 1000) / r.Next(-10, 10);
-            return mass;
-        });
+        doubleArray.Add(6.4);
         doubleArray.Print();
-        intArray.DeleteElement((m,i)=>
-        {
-            int[] mass = new int[m.Length-1];
-            for (int t = 0; t<m.Length; t++)
-            {
-                if(t<i)
-                {
-                    mass[t] = m[t];
-                }
-                else if(t>i)
-                {
-                    mass[t-1] = m[t];
-                }
-            }
-            return mass;
-        });
+        intArray.DeleteElement(2);
         intArray.Print();
-        doubleArray.DeleteElement((m, i) =>
-        {
-            double[] mass = new double[m.Length - 1];
-            for (int t = 0; t < m.Length; t++)
-            {
-                if (t < i)
-                {
-                    mass[t] = m[t];
-                }
-                else if (t > i)
-                {
-                    mass[t - 1] = m[t];
-                }
-            }
-            return mass;
-        });
+        doubleArray.DeleteElement(6);
         doubleArray.Print();
         intArray.Sorting();
-        intArray.Print();
+        intArray.Print();A
         doubleArray.Sorting();
         doubleArray.Print();
         intArray.CountWithIf((i)=>

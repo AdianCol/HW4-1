@@ -5,60 +5,73 @@ public sealed class OneDemensionMassive<T>
 {
     private T[] massive;
     private Random r = new Random();
-    private int len = 10;
+    private int _size;
+    private int _capacity;
 
-    public OneDemensionMassive(Func<T[], bool, T[]> action) 
+    public OneDemensionMassive(int capacity) 
     {
-        CreateMassive(action);
+        massive = new T[capacity];
+        _capacity = capacity;
+        _size = 0;
     }
 
-    public void CreateMassive(Func<T[], bool, T[]> action)
-    {
-        Console.WriteLine("How to fill the array");
-        bool choice = bool.Parse(Console.ReadLine());
-        if (choice)
-        {
-            massive = new T[int.Parse(Console.ReadLine())];
-        }
-        else
-        {
-            massive = new T[len];
-        }
-        massive = action(massive, choice);
-    }
+    public OneDemensionMassive():this(7)
+    {}
 
-    public void AddElement(Func<T[], T[]> action)
+    public void Add(T element)
     {
-        massive = action(massive);
+        if(_size>=_capacity)
+        {
+            _capacity = 2 * _capacity + 1;
+            T[] mass = new T[_capacity];
+            Array.Copy(massive, mass,_size);
+            massive = mass;
+        }
+        massive[_size] = element;
+        _size++;
     }
 
     public void Print()
     {
         Console.WriteLine("Massive");
-        foreach (T i in massive)
+        for (int i = 0; i<_size; i++)
         {
-            Console.Write(i + " ");
+            Console.Write(massive[i] + " ");
         }
         Console.WriteLine();
     }
 
-    public void DeleteElement(Func<T[], int, T[]> action)
+    public void DeleteElement(int index)
     {
-        Console.WriteLine("Write the index of element you will remove");
-        int ind = int.Parse(Console.ReadLine());
-        massive = action(massive, ind);
+        if(index<=_size)
+        {
+            T[] mass = new T[_capacity];
+            for (int t = 0; t < _size; t++)
+            {
+                if (t != index)
+                {
+                    mass[t] = massive[t];
+                }
+            }
+            _size--;
+            massive = mass;
+        }
+        else
+        {
+            Console.WriteLine("Index is out of range!");
+        }
     }
 
     public void Sorting()
     {
-        Array.Sort(massive);
+        Array.Sort(massive, 0, _size);
     }
 
     public bool EvenIfOne(Func<T, bool> action)
     {
-        foreach (T i in massive)
+        for (int i = 0; i < _size; i++)
         {
-            if (action(i))
+            if (action(massive[i]))
             {
                 return true;
             }
@@ -67,9 +80,9 @@ public sealed class OneDemensionMassive<T>
     }
     public bool IfAll(Func<T, bool> action)
     {
-        foreach (T i in massive)
+        for (int i = 0; i < _size; i++)
         {
-            if (!action(i))
+            if (!action(massive[i]))
             {
                 return false;
             }
@@ -80,9 +93,9 @@ public sealed class OneDemensionMassive<T>
     public void CountWithIf(Func<T, bool> action)
     {
         int c = 0;
-        foreach(T i in massive)
+        for(int i = 0; i<_size; i++)
         {
-            if(action(i)){
+            if(action(massive[i])){
                 c++;
             }
         }

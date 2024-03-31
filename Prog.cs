@@ -8,7 +8,18 @@ class Prog{
         OneDemensionMassive<double> doubleArray = new();
         doubleArray.Print();
         intArray.Add(5);
+        intArray.Add(25);
+        intArray.Add(453);
+        intArray.Add(4354);
+        intArray.Add(75373);
+        intArray.Add(15);
         intArray.Print();
+        doubleArray.Add(874.44);
+        doubleArray.Add(701.25);
+        doubleArray.Add(942.5);
+        doubleArray.Add(0.241);
+        doubleArray.Add(0.5);
+        doubleArray.Add(94);
         doubleArray.Add(6.4);
         doubleArray.Print();
         intArray.DeleteElement(2);
@@ -19,36 +30,9 @@ class Prog{
         intArray.Print();
         doubleArray.Sorting();
         doubleArray.Print();
-        intArray.CountWithIf((i)=>
-        {
-            if(i>50){
-                return true;
-            }
-            else{
-                return false;
-            }
-        });
-        doubleArray.CountWithIf((i) =>
-        {
-            if (i < -60.7)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        });
-        Console.WriteLine(intArray.EvenIfOne((i)=>
-        {
-            if (i<10)
-                {return true;}
-            else
-                {return false;}
-        }));
-        Console.WriteLine(doubleArray.EvenIfOne((i) => { if (i < 0) { return true;} else { return false;} }));
-        Console.WriteLine(intArray.IfAll((i) => { if (i > 10) { return true; } else { return false; } }));
-        Console.WriteLine(doubleArray.IfAll((i) => { if (i > 0) { return true; } else { return false; } }));
-
+        Console.WriteLine(intArray.MaxValue());
+        Console.WriteLine(intArray.MinValue());
+        Console.WriteLine(doubleArray.MaxValue());
+        Console.WriteLine(doubleArray.MinValue());
     }
 }

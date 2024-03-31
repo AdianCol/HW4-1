@@ -4,6 +4,7 @@ using System.Collections;
 public sealed class OneDemensionMassive<T>
 {
     private T[] massive;
+    public int Length {get{return _size;} set{} }
     private Random r = new Random();
     private int _size;
     private int _capacity;
@@ -48,9 +49,13 @@ public sealed class OneDemensionMassive<T>
             T[] mass = new T[_capacity];
             for (int t = 0; t < _size; t++)
             {
-                if (t != index)
+                if (t < index)
                 {
                     mass[t] = massive[t];
+                }
+                else if (t > index)
+                {
+                    mass[t-1] = massive[t];
                 }
             }
             _size--;
@@ -90,7 +95,91 @@ public sealed class OneDemensionMassive<T>
         return true;
     }
 
-    public void CountWithIf(Func<T, bool> action)
+    public void ApplyToAll(Func<T, T> action)
+    {
+        for(int i =0; i<_size; i++)
+        {
+            massive[i] = action(massive[i]);
+        }
+    }
+
+    public T MinValue()
+    {
+        T[] values = new T[_size];
+        for (int i = 0; i < _size; i++)
+        {
+            values[i] = massive[i];
+        }
+        Array.Sort(values);
+        return values[0];
+    }
+
+    public T MaxValue()
+    {
+        T[] values = new T[_size];
+        for (int i = 0; i < _size; i++)
+        {
+            values[i] = massive[i];
+        }
+        Array.Sort(values);
+        return values[_size-1];
+    }
+
+    public void Reverse()
+    {
+        T[] values = new T[_size];
+        int c =0;
+        for (int i = _size; i >0; i--)
+        {
+            values[c] = massive[i];
+            c++;
+        }
+        for (int i = 0; i < _size; i++)
+        {
+            massive[i] = values[i];
+        }
+    }
+
+    public T[] ReturnAllWithIf(Func<T, bool> action)
+    {
+        T[] values = new T[CountWithIf(action)];
+        int c = 0;
+        for (int i = 0; i < _size; i++)
+        {
+            if (action(massive[i]))
+            {
+                values[c] = massive[i];
+                c++;
+            }
+        }
+        return values;
+    }
+
+    public T ReturnFirstIf (Func<T, bool> action)
+    {
+        for (int i = 0; i < _size; i++)
+        {
+            if (action(massive[i]))
+            {
+                return massive[i];
+            }
+        }
+        return default(T);
+    }
+
+    public bool DoesElementExist(T element)
+    {
+        if(massive.Contains(element))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int CountWithIf(Func<T, bool> action)
     {
         int c = 0;
         for(int i = 0; i<_size; i++)
@@ -99,7 +188,7 @@ public sealed class OneDemensionMassive<T>
                 c++;
             }
         }
-        Console.WriteLine(c);
+        return c;
     }
 
 }
